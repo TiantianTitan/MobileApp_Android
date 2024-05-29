@@ -1,75 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
+    android:padding="16dp"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Password"
-        tools:ignore="MissingConstraints" />
-
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="266dp"
-        android:layout_height="263dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.119"
-        app:srcCompat="@drawable/logo_infini_dessert" />
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/logo_infini_dessert"
+        android:layout_gravity="center"
+        tools:ignore="MissingConstraints"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="50dp"
+       />
 
-    <EditText
-        android:id="@+id/Username"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginTop="372dp"
-        android:background="#FFFFFF"
-        android:ems="10"
-        android:hint=" exemple@gmail.com"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:inputType="textEmailAddress"
+            android:hint=" exemple@gmail.com"
+            />
 
-    <EditText
-        android:id="@+id/Password"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginTop="24dp"
-        android:background="#FFFFFF"
-        android:ems="10"
-        android:hint=" mot de passe"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Username"
-        app:layout_constraintVertical_bias="0.025" />
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:inputType="textPassword"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:hint=" mot de passe"
+            />
 
-    <TextView
-        android:id="@+id/signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Créer un compte?"
-        android:textColor="@color/white"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Password" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Créer un compte ?"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:layout_marginTop="50dp"
+            android:textStyle="italic"
+            android:textSize="15dp"
+            />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center"
+                android:text=" Se Connecter"
+                />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Besoin d'aide ?"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:textStyle="italic"
+            android:textSize="12dp"
+            />
+
+</LinearLayout>
