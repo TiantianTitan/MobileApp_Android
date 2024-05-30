@@ -11,63 +11,83 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:src="@drawable/logo_infini_dessert"
-        android:layout_gravity="center"
-        tools:ignore="MissingConstraints"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="50dp"
-       />
+<ImageView
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:src="@drawable/infini_dessert_logo"
+    android:layout_gravity="center"
+    tools:ignore="MissingConstraints"
+    android:layout_marginTop="30dp"
+    android:layout_marginBottom="50dp"
+    />
 
-        <EditText
-            android:layout_width="250dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:background="@color/white"
-            android:inputType="textEmailAddress"
-            android:hint=" exemple@gmail.com"
-            />
+<EditText
+    android:id="@+id/mail"
+    android:layout_width="250dp"
+    android:layout_height="30dp"
+    android:layout_gravity="center"
+    android:background="@color/white"
+    android:inputType="textEmailAddress"
+    android:textColor="@color/black"
+    android:hint="exemple@gmail.com"
+    android:paddingLeft="10dp"
+    />
 
-        <EditText
-            android:layout_width="250dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:inputType="textPassword"
-            android:layout_gravity="center"
-            android:background="@color/white"
-            android:hint=" mot de passe"
-            />
+<EditText
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" Créer un compte ?"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:layout_marginTop="50dp"
-            android:textStyle="italic"
-            android:textSize="15dp"
-            />
+    android:id="@+id/password"
+    android:layout_width="250dp"
+    android:layout_height="30dp"
+    android:layout_marginTop="20dp"
+    android:inputType="textPassword"
+    android:layout_gravity="center"
+    android:background="@color/white"
+    android:textColor="@color/black"
+    android:hint="mot de passe"
+    android:paddingLeft="10dp"
+    />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_gravity="center"
-                android:text=" Se Connecter"
-                />
+    <TextView
+        android:id="@+id/error_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/red"
+        android:visibility="gone"
+        android:textSize="12dp" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" Besoin d'aide ?"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:layout_marginTop="10dp"
-            android:textStyle="italic"
-            android:textSize="12dp"
-            />
+    <EditText
+    android:id="@+id/help"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text=" Créer un compte ?"
+    android:layout_gravity="center"
+    android:textColor="@color/white"
+    android:layout_marginTop="50dp"
+    android:textStyle="italic"
+    android:textColorHint="@color/black"
+    android:textSize="15dp"
+    />
+
+<Button
+    android:id="@+id/connect"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="40dp"
+    android:layout_gravity="center"
+    android:text=" Se Connecter"
+    />
+
+<EditText
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text=" Besoin d'aide ?"
+    android:layout_gravity="center"
+    android:textColor="@color/white"
+    android:layout_marginTop="10dp"
+    android:textStyle="italic"
+    android:textSize="12dp"
+    />
 
 </LinearLayout>
