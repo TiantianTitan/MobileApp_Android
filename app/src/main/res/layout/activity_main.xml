@@ -11,6 +11,8 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+
+
 <ImageView
     android:layout_width="300dp"
     android:layout_height="300dp"
@@ -32,6 +34,8 @@
     android:hint="exemple@gmail.com"
     android:paddingLeft="10dp"
     />
+
+
 
 <EditText
 

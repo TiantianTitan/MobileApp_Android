@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Dessert_Shop</string>
     <string name="hello">Hello</string>
+    <string-array name="gâteau">
+        <item>Gâteau 1</item>
+        <item>Gâteau 2</item>
+        <item>Gâteau 3</item>
+        <item>Gâteau 4</item>
+        <item>Gâteau 5</item>
+        <item>Gâteau 6</item>
+    </string-array>
 </resources>

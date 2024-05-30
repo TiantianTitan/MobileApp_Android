@@ -1,5 +1,6 @@
 package com.ndroid.dessert_shop
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -36,10 +37,35 @@ class MainActivity : AppCompatActivity() {
                 error.visibility = View.VISIBLE
             }
             else {
-                val correctEmail = "admin"
+                val correctEmail = "haotianx4@gmail.com"
                 val correctPassword = "root1234"
                 if(correctEmail == textEmail && correctPassword == textPassword){
+                    // Intent Explicite
+
                     Toast.makeText(this,"connect successful",Toast.LENGTH_LONG).show()
+
+                    val intentToHomeActivity = Intent(this,HomeActivity::class.java)
+                    //intentToHomeActivity.putExtra("email",textEmail)
+                    startActivity(intentToHomeActivity)
+
+
+                    /*
+                        val intentToHomeActivity = Intent(this,HomeActivity::class.java)
+                        intentToHomeActivity.apply {
+                        putExtra("email",textEmail)
+                        startActivity(this)
+                    }
+
+                    */
+
+                    /*
+                        Intent(this,HomeActivity::class.java).also{
+                        it.putExtra("email",textEmail)
+                        startActivity(it)
+                    }*/
+                    email.setText("")
+                    password.setText("")
+
                 }else{
                     error.text = "Email ou mot de passe est incorrect!"
                     error.visibility = View.VISIBLE
