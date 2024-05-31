@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Dessert_Shop</string>
+    <string name="app_name">Infini_Dessert_Shop</string>
     <string name="hello">Hello</string>
     <string-array name="gâteau">
         <item>Gâteau 1</item>

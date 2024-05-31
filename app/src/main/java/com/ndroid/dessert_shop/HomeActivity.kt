@@ -2,6 +2,8 @@ package com.ndroid.dessert_shop
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
@@ -24,6 +26,7 @@ class HomeActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        supportActionBar?.title = "Infini_Dessert_Shop"
         /*
 
         val salutation = findViewById<TextView>(R.id.salutation)
@@ -33,7 +36,7 @@ class HomeActivity : AppCompatActivity() {
         // 2 : Afficher l'email dans la salutation
         salutation.text =  "Bienvenu : $email !"
 */
-        val listGateaux = findViewById<ListView>(R.id.list_gâteau)
+        val listGateaux = findViewById<ListView>(R.id.list_gateau)
         val gateauArray = arrayListOf(
             Gateau(
                 "Gâteau chocolat",
@@ -127,9 +130,31 @@ class HomeActivity : AppCompatActivity() {
         }
 
 
+    } // fin onCreate
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.home_menu, menu)
+        return true
     }
 
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_add -> {
+                // Handle add action
+                true
+            }
+            R.id.action_config -> {
+                // Handle config action
+                true
+            }
+            R.id.action_logout -> {
+                // Handle logout action
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
 
 
