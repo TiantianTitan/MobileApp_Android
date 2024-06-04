@@ -8,17 +8,13 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.AdapterContextMenuInfo
-import android.widget.AdapterView.OnItemClickListener
-import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.GeneratedAdapter
 
 class HomeActivity : AppCompatActivity() {
 
@@ -170,37 +166,6 @@ class HomeActivity : AppCompatActivity() {
         return  super.onOptionsItemSelected(item)
     }
 
-    override fun onCreateContextMenu(
-        menu: ContextMenu?,
-        v: View?,
-        menuInfo: ContextMenu.ContextMenuInfo?
-    ) {
-        menuInflater.inflate(R.menu.list_context_menu,menu)
-        super.onCreateContextMenu(menu, v, menuInfo)
-    }
-
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        val info : AdapterView.AdapterContextMenuInfo = item.menuInfo as AdapterContextMenuInfo;
-        val position: Int = info.position
-        when(item.itemId){
-            R.id.itemShow -> {
-                 Intent(this,GateauDetailActivity::class.java).also {
-                     it.putExtra("titre",gateauArray[position].titre)
-                     it.putExtra("imageNumber",gateauArray[position].image)
-                     it.putExtra("prix",gateauArray[position].prix)
-                     it.putExtra("description_complet",gateauArray[position].description_complet)
-
-                     startActivity(it)
-                 }
-            }
-            R.id.itemDelete -> {
-                gateauArray.removeAt(position)
-                adapter.notifyDataSetChanged()
-            }
-        }
-
-        return super.onContextItemSelected(item)
-    }
 
 
 

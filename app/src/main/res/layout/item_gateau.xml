@@ -23,30 +23,60 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="65dp"
-        tools:text="Description"
         android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/aime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageGateau"
-        app:layout_constraintTop_toBottomOf="@+id/titre" />
+        app:layout_constraintTop_toBottomOf="@+id/titre"
+        tools:text="Description" />
 
-    <Button
-        android:id="@+id/aime"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="20dp"
+    <TextView
+        android:id="@+id/aide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
         android:text="J'aime"
+        android:textColor="#2196F3"
         android:textSize="12sp"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageGateau"
         app:layout_constraintTop_toBottomOf="@+id/description" />
 
     <TextView
-        android:id="@+id/partager"
+        android:id="@+id/titre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageGateau"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Titre" />
+
+    <TextView
+        android:id="@+id/prix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageGateau"
+        tools:text="prix" />
+
+    <ImageView
+        android:id="@+id/image_show_popup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.859"
+        app:layout_constraintStart_toEndOf="@+id/titre"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_show_popup" />
+
+    <TextView
+        android:id="@+id/partage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -54,31 +84,8 @@
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.37"
-        app:layout_constraintStart_toEndOf="@+id/aime"
+        app:layout_constraintHorizontal_bias="0.774"
+        app:layout_constraintStart_toEndOf="@+id/aide"
         app:layout_constraintTop_toBottomOf="@+id/description" />
-
-    <TextView
-        android:id="@+id/titre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        tools:text="Titre"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageGateau"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/prix"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        tools:text="prix"
-        app:layout_constraintEnd_toStartOf="@+id/aime"
-        app:layout_constraintHorizontal_bias="0.475"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageGateau" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
