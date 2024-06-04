@@ -2,10 +2,12 @@ package com.ndroid.dessert_shop
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
+import android.widget.AdapterView.AdapterContextMenuInfo
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.ListView
@@ -13,10 +15,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.GeneratedAdapter
 
 class HomeActivity : AppCompatActivity() {
+
+    lateinit var listGateaux : ListView
+    var gateauArray = ArrayList<Gateau>()
+    lateinit var  adapter : GateauxAdapteur
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,6 +35,9 @@ class HomeActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
         supportActionBar?.title = "Infini_Dessert_Shop"
         /*
 
@@ -36,8 +48,8 @@ class HomeActivity : AppCompatActivity() {
         // 2 : Afficher l'email dans la salutation
         salutation.text =  "Bienvenu : $email !"
 */
-        val listGateaux = findViewById<ListView>(R.id.list_gateau)
-        val gateauArray = arrayListOf(
+        listGateaux = findViewById<ListView>(R.id.list_gateau)
+        gateauArray = arrayListOf(
             Gateau(
                 "Gâteau chocolat",
                 "Ce gâteau est non seulement attrayant visuellement avec ses diverses textures et couleurs, mais il promet également une explosion de saveurs pour ceux qui auront la chance de le déguster.",
@@ -115,7 +127,7 @@ class HomeActivity : AppCompatActivity() {
             )
         )
 
-        val adapter = GateauxAdapteur(this,R.layout.item_gateau,gateauArray)
+        adapter = GateauxAdapteur(this,R.layout.item_gateau,gateauArray)
         listGateaux.adapter = adapter
 
         listGateaux.setOnItemClickListener{ adapterView,view,position,id->
@@ -129,6 +141,8 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        registerForContextMenu(listGateaux)
+
 
     } // fin onCreate
 
@@ -139,25 +153,54 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
+        when (item.itemId) {
             R.id.action_add -> {
-                // Handle add action
-                true
+               Toast.makeText(this,"Add new gâteau",Toast.LENGTH_SHORT).show()
+
             }
             R.id.action_config -> {
-                // Handle config action
-                true
+                Toast.makeText(this,"Configuer",Toast.LENGTH_SHORT).show()
+
             }
             R.id.action_logout -> {
-                // Handle logout action
-                true
+                finish()
             }
-            else -> super.onOptionsItemSelected(item)
+
         }
+        return  super.onOptionsItemSelected(item)
     }
 
+    override fun onCreateContextMenu(
+        menu: ContextMenu?,
+        v: View?,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        menuInflater.inflate(R.menu.list_context_menu,menu)
+        super.onCreateContextMenu(menu, v, menuInfo)
+    }
 
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        val info : AdapterView.AdapterContextMenuInfo = item.menuInfo as AdapterContextMenuInfo;
+        val position: Int = info.position
+        when(item.itemId){
+            R.id.itemShow -> {
+                 Intent(this,GateauDetailActivity::class.java).also {
+                     it.putExtra("titre",gateauArray[position].titre)
+                     it.putExtra("imageNumber",gateauArray[position].image)
+                     it.putExtra("prix",gateauArray[position].prix)
+                     it.putExtra("description_complet",gateauArray[position].description_complet)
 
+                     startActivity(it)
+                 }
+            }
+            R.id.itemDelete -> {
+                gateauArray.removeAt(position)
+                adapter.notifyDataSetChanged()
+            }
+        }
+
+        return super.onContextItemSelected(item)
+    }
 
 
 

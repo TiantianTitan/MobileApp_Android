@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                 if(correctEmail == textEmail && correctPassword == textPassword){
                     // Intent Explicite
 
-                    Toast.makeText(this,"connect successful",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"connect successful",Toast.LENGTH_SHORT).show()
 
                     val intentToHomeActivity = Intent(this,HomeActivity::class.java)
                     //intentToHomeActivity.putExtra("email",textEmail)
