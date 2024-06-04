@@ -1,5 +1,7 @@
 package com.ndroid.dessert_shop
 
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.ContextMenu
@@ -11,6 +13,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo
 import android.widget.ListView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
@@ -159,16 +162,41 @@ class HomeActivity : AppCompatActivity() {
 
             }
             R.id.action_logout -> {
-                finish()
+                // Afficher un dialogue de confirmation
+                showLogoutConfirmationDialog()
+
+                //  finish()
             }
 
         }
         return  super.onOptionsItemSelected(item)
     }
 
+    private fun showLogoutConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirmation")
+        builder.setMessage("Êtes-vous sure de vouloir quitter l'appli ?")
+        builder.setPositiveButton("Oui"){
+            dialogInterface: DialogInterface, id->
+            val editor = this.getSharedPreferences("app_state",Context.MODE_PRIVATE).edit()
+            editor.remove("is_authentificated")
+            editor.apply()
 
+            finish()
+        }
+        builder.setNegativeButton("Non"){
+            dialogInterface: DialogInterface, id ->
+            dialogInterface.dismiss()
+        }
+        builder.setNeutralButton("Annuler"){
+            dialogInterface : DialogInterface, id ->
+            dialogInterface.dismiss()
+        }
 
+        val alertDialog : AlertDialog = builder.create()
+        alertDialog.show()
 
+    }
 
 
 }

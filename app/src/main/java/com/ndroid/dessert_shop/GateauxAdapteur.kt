@@ -1,6 +1,7 @@
 package com.ndroid.dessert_shop
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 
 class GateauxAdapteur(
     var mContext: Context,
@@ -50,8 +52,10 @@ class GateauxAdapteur(
                     }
 
                     R.id.itemDelete ->{
-                        values.removeAt(position)
-                        notifyDataSetChanged()
+                        showDeleteConfirmationDialog(position)
+
+//                        values.removeAt(position)
+//                        notifyDataSetChanged()
                     }
 
                 }
@@ -66,10 +70,28 @@ class GateauxAdapteur(
         return itemView
     }
 
+    private fun showDeleteConfirmationDialog(position: Int) {
+        val builder = AlertDialog.Builder(mContext)
+        builder.setTitle("Confirmation")
+        builder.setMessage("Êtes-vous sure de vouloir delete cet élément ?")
+        builder.setPositiveButton("Oui"){
+            dialogInterface: DialogInterface, id->
+            values.removeAt(position)
+            notifyDataSetChanged()
+        }
+        builder.setNegativeButton("Non"){
+            dialogInterface: DialogInterface, id->
+            dialogInterface.dismiss()
+        }
+        builder.setNeutralButton("Annuler"){
+            dialogInterface: DialogInterface, id->
+            dialogInterface.dismiss()
+        }
 
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.show()
 
-
-
+    }
 
 
 }
