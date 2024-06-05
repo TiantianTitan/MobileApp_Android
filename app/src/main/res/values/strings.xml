@@ -9,4 +9,8 @@
         <item>Gâteau 5</item>
         <item>Gâteau 6</item>
     </string-array>
+    <string name="register_activity_title">Créer un compte</string>
+    <string name="error_empty_fields">Tout les champs sont obligatoires</string>
+    <string name="password_different">Les mots de passe sont différents</string>
+    <string name="success_register">Votre compte a été créer avec succès</string>
 </resources>

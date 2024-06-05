@@ -59,9 +59,8 @@ class MainActivity : AppCompatActivity() {
                 error.text = "Vous devez remplir tout les champs!"
                 error.visibility = View.VISIBLE
             } else {
-                val correctEmail = "haotianx4@gmail.com"
-                val correctPassword = "root1234"
-                if (correctEmail == textEmail && correctPassword == textPassword) {
+                val user = db.findUser(textEmail,textPassword)
+                if (user != null) {
                     // Intent Explicite
 
                     Toast.makeText(this, "connect successful", Toast.LENGTH_SHORT).show()
