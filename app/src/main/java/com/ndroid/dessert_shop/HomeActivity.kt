@@ -151,8 +151,9 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_add -> {
-               Toast.makeText(this,"Add new gâteau",Toast.LENGTH_SHORT).show()
-
+                Intent(this,AddGateauActivity::class.java).also {
+                    startActivity(it)
+                }
             }
             R.id.action_config -> {
                 Toast.makeText(this,"Configuer",Toast.LENGTH_SHORT).show()

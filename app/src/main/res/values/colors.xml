@@ -6,4 +6,5 @@
     <color name="background">#68553A</color>
     <color name="red">#FF0000</color>
     <color name="menu">#564835</color>
+    <color name="light_grey">#A8ECECEC</color>
 </resources>
