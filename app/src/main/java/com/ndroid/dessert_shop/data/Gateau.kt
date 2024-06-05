@@ -1,4 +1,4 @@
-package com.ndroid.dessert_shop
+package com.ndroid.dessert_shop.data
 
 class Gateau(
     var titre : String,

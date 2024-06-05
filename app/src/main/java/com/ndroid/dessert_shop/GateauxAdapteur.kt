@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import com.ndroid.dessert_shop.data.Gateau
 
 class GateauxAdapteur(
     var mContext: Context,

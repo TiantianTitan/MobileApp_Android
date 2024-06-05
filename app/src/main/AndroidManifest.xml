@@ -13,10 +13,12 @@
         android:theme="@style/Theme.Dessert_Shop"
         tools:targetApi="31">
         <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".GateauDetailActivity"
             android:exported="false"
-            android:parentActivityName=".HomeActivity"
-            />
+            android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".HomeActivity"
             android:exported="false"

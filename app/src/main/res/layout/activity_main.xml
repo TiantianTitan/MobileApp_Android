@@ -62,7 +62,7 @@
         android:textSize="12dp" />
 
     <EditText
-    android:id="@+id/help"
+    android:id="@+id/tvRegister"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text=" Créer un compte ?"

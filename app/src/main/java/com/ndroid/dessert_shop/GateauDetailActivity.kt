@@ -25,7 +25,7 @@ class GateauDetailActivity : AppCompatActivity() {
         val price_detail = findViewById<TextView>(R.id.prix_detail)
         val description_complet = findViewById<TextView>(R.id.Description_complet)
 
-        val retour = findViewById<Button>(R.id.back)
+        val retour = findViewById<Button>(R.id.register_back)
 
 
         val titre = intent.getStringExtra("titre")

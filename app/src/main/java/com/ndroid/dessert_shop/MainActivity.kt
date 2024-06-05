@@ -14,10 +14,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.ndroid.dessert_shop.db.DessertShopDataBase
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var sharedPreferences: SharedPreferences
+    lateinit var db: DessertShopDataBase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -28,13 +30,15 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        sharedPreferences = this.getSharedPreferences("app_state",Context.MODE_PRIVATE)
-        val isAuthentificated = sharedPreferences.getBoolean("is_authentificated",false)
-        val emailSharedPreferences = this.sharedPreferences.getString("email","")
+        sharedPreferences = this.getSharedPreferences("app_state", Context.MODE_PRIVATE)
+        db = DessertShopDataBase(this)
 
-        if(isAuthentificated){
-            Intent(this,HomeActivity::class.java).also {
-                it.putExtra("email",emailSharedPreferences)
+        val isAuthentificated = sharedPreferences.getBoolean("is_authentificated", false)
+        val emailSharedPreferences = this.sharedPreferences.getString("email", "")
+
+        if (isAuthentificated) {
+            Intent(this, HomeActivity::class.java).also {
+                it.putExtra("email", emailSharedPreferences)
                 startActivity(it)
             }
         }
@@ -43,26 +47,26 @@ class MainActivity : AppCompatActivity() {
         val email = findViewById<EditText>(R.id.mail)
         val password = findViewById<EditText>(R.id.password)
         val error = findViewById<TextView>(R.id.error_password)
+        val tvRegister = findViewById<TextView>(R.id.tvRegister)
 
-        sharedPreferences = this.getSharedPreferences("app_state",Context.MODE_PRIVATE)
+        sharedPreferences = this.getSharedPreferences("app_state", Context.MODE_PRIVATE)
 
 
-        connect.setOnClickListener{
+        connect.setOnClickListener {
             val textEmail = email.text.toString()
             val textPassword = password.text.toString()
-            if(textEmail.trim().isEmpty() ||textPassword.trim().isEmpty() ) {
+            if (textEmail.trim().isEmpty() || textPassword.trim().isEmpty()) {
                 error.text = "Vous devez remplir tout les champs!"
                 error.visibility = View.VISIBLE
-            }
-            else {
+            } else {
                 val correctEmail = "haotianx4@gmail.com"
                 val correctPassword = "root1234"
-                if(correctEmail == textEmail && correctPassword == textPassword){
+                if (correctEmail == textEmail && correctPassword == textPassword) {
                     // Intent Explicite
 
-                    Toast.makeText(this,"connect successful",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "connect successful", Toast.LENGTH_SHORT).show()
 
-                    val intentToHomeActivity = Intent(this,HomeActivity::class.java)
+                    val intentToHomeActivity = Intent(this, HomeActivity::class.java)
                     //intentToHomeActivity.putExtra("email",textEmail)
                     startActivity(intentToHomeActivity)
 
@@ -86,16 +90,21 @@ class MainActivity : AppCompatActivity() {
 
                     // Enregistrer dans sharedPreferences le boolean isAuthentificated
                     val editor = sharedPreferences.edit()
-                    editor.putBoolean("is_authentificated",true).apply()
-                    editor.putString("email",textEmail)
+                    editor.putBoolean("is_authentificated", true).apply()
+                    editor.putString("email", textEmail)
                     editor.apply()
-                }else{
+                } else {
                     error.text = "Email ou mot de passe est incorrect!"
                     error.visibility = View.VISIBLE
                 }
             }
         }
 
+        tvRegister.setOnClickListener {
+            Intent(this, RegisterActivity::class.java).also {
+                startActivity(it)
+            }
+        }
 
 
     }
