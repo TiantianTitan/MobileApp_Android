@@ -11,17 +11,15 @@
     tools:context=".AddGateauActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageAddGateau"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="68dp"
-        android:tint="@color/material_dynamic_neutral_variant70"
+        android:layout_marginTop="36dp"
+        android:src="@drawable/image_placeholder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_add"
-        app:tintMode="add" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTItle"
@@ -50,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageAddGateau" />
 
     <EditText
         android:id="@+id/editDescription"

@@ -179,7 +179,9 @@ class HomeActivity : AppCompatActivity() {
             val editor = this.getSharedPreferences("app_state",Context.MODE_PRIVATE).edit()
             editor.remove("is_authentificated")
             editor.apply()
-
+            Intent(this,MainActivity::class.java).also {
+                startActivity(it)
+            }
             finish()
         }
         builder.setNegativeButton("Non"){
