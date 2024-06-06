@@ -9,10 +9,15 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.ndroid.dessert_shop.data.Gateau
+import com.ndroid.dessert_shop.db.DessertShopDataBase
+import java.io.ByteArrayOutputStream
 
 class AddGateauActivity : AppCompatActivity() {
 
@@ -20,8 +25,10 @@ class AddGateauActivity : AppCompatActivity() {
     lateinit var editTitle : EditText
     lateinit var editDescription: EditText
     lateinit var imageGateau : ImageView
+    lateinit var editPrice : EditText
 
-
+    lateinit var db: DessertShopDataBase
+    var bitmap : Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,21 +40,57 @@ class AddGateauActivity : AppCompatActivity() {
             insets
         }
 
+        db = DessertShopDataBase(this)
+
         btnSave = findViewById<Button>(R.id.btn_gateaux_add)
         editTitle = findViewById<EditText>(R.id.editTItle)
         editDescription = findViewById<EditText>(R.id.editDescription)
         imageGateau = findViewById<ImageView>(R.id.imageAddGateau)
+        editPrice = findViewById<EditText>(R.id.editPrice)
+
+        val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()){ data ->
+            val inputStream = contentResolver.openInputStream(data!!)
+            bitmap = BitmapFactory.decodeStream(inputStream)
+            imageGateau.setImageBitmap(bitmap)
+        }
 
         imageGateau.setOnClickListener{
             // ouvrir gallery
-            val intentImg = Intent(Intent.ACTION_GET_CONTENT)
-            intentImg.type= "image/*"
-            startActivityForResult(intentImg,100)
+            galleryLauncher.launch("image/*")
         }
 
 
         btnSave.setOnClickListener {
-            // TODO: enregistrer dans la base de données la poste avec l'image
+           // récupérer les différents valeurs ...
+            val title = editTitle.text.toString()
+            val description = editDescription.text.toString()
+            val price = editPrice.text.toString()
+
+            if (bitmap == null) {
+                Toast.makeText(this, "Veuillez sélectionner une image", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if(title.isEmpty() || description.isEmpty() || price.isEmpty()){
+                Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val imagesBlob : ByteArray = getBytes(bitmap!!)
+
+
+            val gateau = Gateau(title,description,imagesBlob,price,"")
+            db.addGateau(gateau)
+            val isAdded = db.addGateau(gateau)
+
+            if (isAdded) {
+                Toast.makeText(this, "Gâteau ajouté avec succès", Toast.LENGTH_SHORT).show()
+                Intent(this, HomeActivity::class.java).also {
+                    startActivity(it)
+                }
+                finish()
+            } else {
+                Toast.makeText(this, "Erreur lors de l'ajout du gâteau", Toast.LENGTH_SHORT).show()
+            }
         }
 
 
@@ -57,23 +100,16 @@ class AddGateauActivity : AppCompatActivity() {
             Intent(this,HomeActivity::class.java).also {
                 startActivity(it)
             }
+            finish()
         }
-
-
 
     } // fin onCreate
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if(requestCode == 100 && resultCode == RESULT_OK){
-            val uri: Uri? = data?.data
-            val inputStream = contentResolver.openInputStream(uri!!)
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            imageGateau.setImageBitmap(bitmap)
-        }
-
+    fun getBytes(bitmap: Bitmap): ByteArray{
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG,100,stream)
+        return  stream.toByteArray()
     }
 
 

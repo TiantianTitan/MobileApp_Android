@@ -3,6 +3,8 @@ package com.ndroid.dessert_shop
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +34,9 @@ class GateauxAdapteur(
 
         gateauTitre.text = gateau.titre
         description.text = gateau.description
-        imageGateau.setImageResource(gateau.image)
+        val bitmap = getBitmap(gateau.image)
+        imageGateau.setImageBitmap(bitmap)
+
         price.text = gateau.prix
 
         imageShowPopup.setOnClickListener{
@@ -94,5 +98,7 @@ class GateauxAdapteur(
 
     }
 
-
+    fun getBitmap(byteArray: ByteArray):Bitmap{
+        return BitmapFactory.decodeByteArray(byteArray,0,byteArray.size)
+    }
 }

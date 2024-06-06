@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.ndroid.dessert_shop.data.Gateau
 import com.ndroid.dessert_shop.data.User
 
 class DessertShopDataBase (mContext : Context ) : SQLiteOpenHelper(
@@ -16,21 +17,37 @@ class DessertShopDataBase (mContext : Context ) : SQLiteOpenHelper(
     override fun onCreate(db: SQLiteDatabase?) {
         // creation des tables
         val createTableUser = """
-            CREATE TABLE users(
+            CREATE TABLE $USERS_TABLE_NAME(
                 $USER_ID integer PRIMARY KEY,
                 $NAME varchar(50),
                 $EMAIL varchar(100),
                 $PASSWORD varchar(20)
             )
         """.trimIndent()
+
+        val createTableGateaux = """
+            CREATE TABLE $GATEAUX_TABLE_NAME(
+                $GATEAU_ID integer PRIMARY KEY,
+                $TITLE varchar(50),
+                $DESCRIPTION text,
+                $IMAGE blob,
+                $PRICE text,
+                $DESCRIPTION_COMPLET varchar(50)
+            )
+        """.trimIndent()
+
+
         db?.execSQL(createTableUser)
+        db?.execSQL(createTableGateaux)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         // la suppression des anciens table,
         db?.execSQL("DROP TABLE IF EXISTS $USERS_TABLE_NAME")
+        db?.execSQL("DROP TABLE IF EXISTS $GATEAUX_TABLE_NAME")
 
         // et la re creation des nouveaux
+
         onCreate(db)
     }
 
@@ -70,17 +87,69 @@ class DessertShopDataBase (mContext : Context ) : SQLiteOpenHelper(
         return user
     }
 
+    fun addGateau(gateau: Gateau):Boolean{
+        val db = writableDatabase
+        val values = ContentValues()
+        values.put(TITLE,gateau.titre)
+        values.put(DESCRIPTION,gateau.description)
+        values.put(IMAGE,gateau.image)
+        values.put(PRICE,gateau.prix)
+        values.put(DESCRIPTION_COMPLET,gateau.description_complet)
+
+        val result = db.insert(GATEAUX_TABLE_NAME,null,values).toInt()
+        db.close()
+
+        return result != -1
+    }
+
+    fun findGateaux():ArrayList<Gateau>{
+        val gateaux = ArrayList<Gateau>()
+        val db = readableDatabase
+        val selectQuery = "SELECT * FROM $GATEAUX_TABLE_NAME"
+        val cursor = db.rawQuery(selectQuery,null)
+        if(cursor != null){
+            if(cursor.moveToFirst()){
+                do{
+                    val id = cursor.getInt(cursor.getColumnIndexOrThrow(GATEAU_ID))
+                    val title = cursor.getString(cursor.getColumnIndexOrThrow(TITLE))
+                    val description = cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION))
+                    val image = cursor.getBlob(cursor.getColumnIndexOrThrow(IMAGE))
+                    val price = cursor.getString(cursor.getColumnIndexOrThrow(PRICE))
+                    val description_complet = cursor.getString(cursor.getColumnIndexOrThrow(
+                        DESCRIPTION_COMPLET))
+                    val gateau = Gateau(id,title,description,image,price,description_complet)
+                    gateaux.add(gateau)
+                }while(cursor.moveToNext())
+            }
+        }
+
+
+        db.close()
+        return  gateaux
+    }
 
 
 
     companion object {
         private val DB_NAME = "dessertshop_db"
-        private val DB_VERSION = 1
+        private val DB_VERSION = 2
+        // users
         private val USERS_TABLE_NAME = "users"
         private val USER_ID = "id"
         private val NAME = "name"
         private val EMAIL = "email"
         private val PASSWORD = "password"
+
+        // gateux
+        private val GATEAUX_TABLE_NAME = "gateux"
+        private val GATEAU_ID = "id"
+        private val TITLE = "title"
+        private val DESCRIPTION = "description"
+        private val DESCRIPTION_COMPLET = "description_complet"
+        private val IMAGE = "image"
+        private val PRICE = "price"
+
+
     }
 
 

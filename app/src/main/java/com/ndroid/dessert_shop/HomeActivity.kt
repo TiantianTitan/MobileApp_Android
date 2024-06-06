@@ -15,12 +15,15 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.ndroid.dessert_shop.data.Gateau
+import com.ndroid.dessert_shop.db.DessertShopDataBase
 
 class HomeActivity : AppCompatActivity() {
 
     lateinit var listGateaux : ListView
     var gateauArray = ArrayList<Gateau>()
     lateinit var  adapter : GateauxAdapteur
+
+    lateinit var db : DessertShopDataBase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +35,7 @@ class HomeActivity : AppCompatActivity() {
             insets
         }
 
+        db = DessertShopDataBase(this)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Infini_Dessert_Shop"
@@ -45,7 +49,10 @@ class HomeActivity : AppCompatActivity() {
         salutation.text =  "Bienvenu : $email !"
 */
         listGateaux = findViewById<ListView>(R.id.list_gateau)
-        gateauArray = arrayListOf(
+
+        gateauArray = db.findGateaux()
+
+        /*gateauArray = arrayListOf(
             Gateau(
                 "Gâteau chocolat",
                 "Ce gâteau est non seulement attrayant visuellement avec ses diverses textures et couleurs, mais il promet également une explosion de saveurs pour ceux qui auront la chance de le déguster.",
@@ -53,9 +60,9 @@ class HomeActivity : AppCompatActivity() {
                 "prix: 40€",
                 """
         • Forme et Base : Le gâteau est rond avec une base probablement composée de biscuit émietté, ajoutant une texture croquante.
-        
+
         • Glaçage et Décorations : Le gâteau est recouvert d'un glaçage crémeux, peut-être au caramel ou au dulce de leche, qui coule élégamment sur les côtés.
-        
+
         • Éléments de Décoration :
             - Rosaces de Crème : Il y a plusieurs rosaces de crème chantilly ou de crème au beurre disposées sur le dessus du gâteau.
             - Chocolats : Des morceaux de barres chocolatées sont placés sur les rosaces, ajoutant une touche de gourmandise.
@@ -71,9 +78,9 @@ class HomeActivity : AppCompatActivity() {
                 "prix: 45€",
                 """
         • Forme et Base : Le gâteau est rond et repose sur une planche en bois. La base est probablement un gâteau à la crème ou au beurre, recouvert d'un glaçage lisse et blanc.
-        
+
         • Décorations et Thème : Le thème du gâteau semble être festif et coloré, avec un accent particulier sur les éléments de décoration dorés et festifs.
-        
+
         • Éléments de Décoration :
             - Message de Joyeux Anniversaire : Sur le dessus du gâteau, il y a une décoration en lettres dorées scintillantes qui lit "Happy Birthday", ajoutant une touche festive et élégante.
             - Fraises Déguisées en Pères Noël : De petites fraises sont décorées pour ressembler à des Pères Noël, avec des chapeaux rouges et des visages en crème, ce qui donne une touche amusante et saisonnière.
@@ -90,9 +97,9 @@ class HomeActivity : AppCompatActivity() {
                 "prix: 50€",
                 """
         • Forme et Base : Le gâteau est rond avec une base classique recouverte de crème ou de glaçage blanc, posé sur une planche en bois.
-        
+
         • Décorations et Thème : Ce gâteau a une apparence très festive et colorée, avec des éléments de décoration variés et un thème d'anniversaire prononcé.
-        
+
         • Éléments de Décoration :
             - Ballons Transparants : Deux grands ballons transparents remplis de confettis dorés sont attachés au sommet du gâteau, apportant une touche spectaculaire et festive.
             - Message de Joyeux Anniversaire : Un décor en lettres dorées scintillantes lisant "Happy Birthday" est placé sur le dessus du gâteau, soulignant le thème de la célébration.
@@ -110,9 +117,9 @@ class HomeActivity : AppCompatActivity() {
                 "prix: 100€",
                 """
         • Forme et Base : Le gâteau est à deux étages avec une base circulaire, recouvert d'un glaçage crémeux et blanc.
-        
+
         • Thème et Décorations : Le thème de ce gâteau semble être axé sur la beauté et le maquillage, avec plusieurs éléments décoratifs qui rappellent ces concepts.
-        
+
         • Éléments de Décoration :
             - Fleurs en Sucre : De grandes fleurs en sucre, notamment des roses blanches et roses, sont disposées sur le gâteau, ajoutant une touche élégante et romantique.
             - Décorations de Maquillage : Divers éléments en sucre représentant des produits de maquillage sont utilisés pour décorer le gâteau. On peut voir des accessoires comme un rouge à lèvres, un pinceau de maquillage, une palette de fards à paupières, et un sac à main noir en sucre.
@@ -121,7 +128,7 @@ class HomeActivity : AppCompatActivity() {
             - Effets Visuels : L'image présente des effets visuels en forme de cœur et des messages tels que "LOVE YOU", ajoutant une touche sentimentale à la présentation du gâteau.
         """.trimIndent()
             )
-        )
+        )*/
 
         adapter = GateauxAdapteur(this,R.layout.item_gateau,gateauArray)
         listGateaux.adapter = adapter
