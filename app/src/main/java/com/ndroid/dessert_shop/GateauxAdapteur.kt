@@ -33,6 +33,7 @@ class GateauxAdapteur(
         val price = itemView.findViewById<TextView>(R.id.prix)
         val imageShowPopup = itemView.findViewById<ImageView>(R.id.image_show_popup)
         val tvLikes = itemView.findViewById<TextView>(R.id.tv_like)
+        val tvShare = itemView.findViewById<TextView>(R.id.tvShare)
 
         gateauTitre.text = gateau.titre
         description.text = gateau.description
@@ -72,11 +73,22 @@ class GateauxAdapteur(
         }
 
         tvLikes.setOnClickListener{
-            // TODO: incrémenter le compteur de "j'aime"
 
             db.incrementLikes(gateau)
             val incrementLikes = gateau.jaime+1
             tvLikes.text = "$incrementLikes j'aime"
+        }
+
+        tvShare.setOnClickListener{
+            val sendIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT,"https://www.infinidessert.com/gateaux/${gateau.id}")
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, gateau.titre)
+            mContext.startActivity(shareIntent)
+
         }
 
         return itemView

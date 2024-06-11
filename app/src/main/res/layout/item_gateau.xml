@@ -76,7 +76,7 @@
         app:srcCompat="@drawable/ic_show_popup" />
 
     <TextView
-        android:id="@+id/partage"
+        android:id="@+id/tvShare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
