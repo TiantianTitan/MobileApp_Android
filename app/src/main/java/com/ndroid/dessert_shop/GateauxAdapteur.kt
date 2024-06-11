@@ -32,15 +32,17 @@ class GateauxAdapteur(
         val imageGateau = itemView.findViewById<ImageView>(R.id.imageGateau)
         val price = itemView.findViewById<TextView>(R.id.prix)
         val imageShowPopup = itemView.findViewById<ImageView>(R.id.image_show_popup)
-
+        val tvLikes = itemView.findViewById<TextView>(R.id.tv_like)
 
         gateauTitre.text = gateau.titre
         description.text = gateau.description
 
         val bitmap = getBitmap(gateau.image)
         imageGateau.setImageBitmap(bitmap)
+        tvLikes.text = "${gateau.jaime} j'aime"
 
         price.text = gateau.prix
+        val db = DessertShopDataBase(mContext)
 
         imageShowPopup.setOnClickListener{
             val popupMenu = PopupMenu(mContext,imageShowPopup)
@@ -66,11 +68,16 @@ class GateauxAdapteur(
                 }
                 true
             }
-
             popupMenu.show()
         }
 
+        tvLikes.setOnClickListener{
+            // TODO: incrémenter le compteur de "j'aime"
 
+            db.incrementLikes(gateau)
+            val incrementLikes = gateau.jaime+1
+            tvLikes.text = "$incrementLikes j'aime"
+        }
 
         return itemView
     }

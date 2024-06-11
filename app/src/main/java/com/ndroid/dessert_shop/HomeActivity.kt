@@ -50,7 +50,7 @@ class HomeActivity : AppCompatActivity() {
 */
         listGateaux = findViewById<ListView>(R.id.list_gateau)
 
-        gateauArray = db.findGateaux()
+
 
         /*gateauArray = arrayListOf(
             Gateau(
@@ -130,6 +130,11 @@ class HomeActivity : AppCompatActivity() {
             )
         )*/
 
+    } // fin onCreate
+
+    override fun onResume() {
+        super.onResume()
+        gateauArray = db.findGateaux()
         adapter = GateauxAdapteur(this,R.layout.item_gateau,gateauArray)
         listGateaux.adapter = adapter
 
@@ -145,9 +150,8 @@ class HomeActivity : AppCompatActivity() {
         }
 
         registerForContextMenu(listGateaux)
+    }
 
-
-    } // fin onCreate
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

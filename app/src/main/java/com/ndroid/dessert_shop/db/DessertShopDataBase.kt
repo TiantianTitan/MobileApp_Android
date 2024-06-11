@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.provider.ContactsContract.CommonDataKinds.Im
 import com.ndroid.dessert_shop.data.Gateau
 import com.ndroid.dessert_shop.data.User
 
@@ -32,18 +33,19 @@ class DessertShopDataBase (mContext : Context ) : SQLiteOpenHelper(
                 $DESCRIPTION text,
                 $IMAGE blob,
                 $PRICE text,
-                $DESCRIPTION_COMPLET varchar(50)
+                $DESCRIPTION_COMPLET varchar(50),
+                $LIKES integer
             )
         """.trimIndent()
 
 
-        db?.execSQL(createTableUser)
+        //db?.execSQL(createTableUser)
         db?.execSQL(createTableGateaux)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         // la suppression des anciens table,
-        db?.execSQL("DROP TABLE IF EXISTS $USERS_TABLE_NAME")
+        //db?.execSQL("DROP TABLE IF EXISTS $USERS_TABLE_NAME")
         db?.execSQL("DROP TABLE IF EXISTS $GATEAUX_TABLE_NAME")
 
         // et la re creation des nouveaux
@@ -95,6 +97,7 @@ class DessertShopDataBase (mContext : Context ) : SQLiteOpenHelper(
         values.put(IMAGE,gateau.image)
         values.put(PRICE,gateau.prix)
         values.put(DESCRIPTION_COMPLET,gateau.description_complet)
+        values.put(LIKES,0)
 
         val result = db.insert(GATEAUX_TABLE_NAME,null,values).toInt()
         db.close()
@@ -118,7 +121,8 @@ class DessertShopDataBase (mContext : Context ) : SQLiteOpenHelper(
                     val price = cursor.getString(cursor.getColumnIndexOrThrow(PRICE))
                     val description_complet = cursor.getString(cursor.getColumnIndexOrThrow(
                         DESCRIPTION_COMPLET))
-                    val gateau = Gateau(id,title,description,image,price,description_complet)
+                    val likes = cursor.getInt(cursor.getColumnIndexOrThrow(LIKES))
+                    val gateau = Gateau(id,title,description,image,price,description_complet,likes)
                     gateaux.add(gateau)
                 }while(cursor.moveToNext())
             }
@@ -137,11 +141,21 @@ class DessertShopDataBase (mContext : Context ) : SQLiteOpenHelper(
         return  rowDeleted > 0
     }
 
+    fun incrementLikes(gateau: Gateau) {
+        val db = this.writableDatabase
+
+        val newLikesCount =  gateau.jaime+1
+        val values = ContentValues()
+        values.put(LIKES,newLikesCount)
+
+        db.update(GATEAUX_TABLE_NAME,values,"id=?", arrayOf("${gateau.id}"))
+        db.close()
+    }
 
 
     companion object {
         private val DB_NAME = "dessertshop_db"
-        private val DB_VERSION = 2
+        private val DB_VERSION = 3
         // users
         private val USERS_TABLE_NAME = "users"
         private val USER_ID = "id"
@@ -157,6 +171,7 @@ class DessertShopDataBase (mContext : Context ) : SQLiteOpenHelper(
         private val DESCRIPTION_COMPLET = "description_complet"
         private val IMAGE = "image"
         private val PRICE = "price"
+        private val LIKES = "jaime"
 
 
     }
