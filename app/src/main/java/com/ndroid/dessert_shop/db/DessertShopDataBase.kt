@@ -129,6 +129,14 @@ class DessertShopDataBase (mContext : Context ) : SQLiteOpenHelper(
         return gateaux
     }
 
+    fun deleteGateaux(id: Int): Boolean{
+        val db = writableDatabase
+
+        val rowDeleted = db.delete(GATEAUX_TABLE_NAME,"id=?", arrayOf(id.toString()))
+
+        return  rowDeleted > 0
+    }
+
 
 
     companion object {

@@ -12,8 +12,10 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.ndroid.dessert_shop.data.Gateau
+import com.ndroid.dessert_shop.db.DessertShopDataBase
 
 class GateauxAdapteur(
     var mContext: Context,
@@ -58,10 +60,7 @@ class GateauxAdapteur(
                     }
 
                     R.id.itemDelete ->{
-                        showDeleteConfirmationDialog(position)
-
-//                        values.removeAt(position)
-//                        notifyDataSetChanged()
+                        showDeleteConfirmationDialog(position,gateau)
                     }
 
                 }
@@ -76,14 +75,20 @@ class GateauxAdapteur(
         return itemView
     }
 
-    private fun showDeleteConfirmationDialog(position: Int) {
+    private fun showDeleteConfirmationDialog(position: Int,gateau: Gateau) {
         val builder = AlertDialog.Builder(mContext)
         builder.setTitle("Confirmation")
         builder.setMessage("Êtes-vous sure de vouloir delete cet élément ?")
         builder.setPositiveButton("Oui"){
             dialogInterface: DialogInterface, id->
-            values.removeAt(position)
-            notifyDataSetChanged()
+            val db = DessertShopDataBase(mContext)
+            val resultDelete = db.deleteGateaux(gateau.id)
+            if(resultDelete){
+                values.removeAt(position)
+                notifyDataSetChanged()
+            }else{
+                Toast.makeText(mContext,"Erreur de supprestion",Toast.LENGTH_SHORT).show()
+            }
         }
         builder.setNegativeButton("Non"){
             dialogInterface: DialogInterface, id->
