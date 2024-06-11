@@ -79,7 +79,6 @@ class AddGateauActivity : AppCompatActivity() {
 
 
             val gateau = Gateau(title,description,imagesBlob,price,"")
-            db.addGateau(gateau)
 
             editTitle.setText("")
             editDescription.setText("")
