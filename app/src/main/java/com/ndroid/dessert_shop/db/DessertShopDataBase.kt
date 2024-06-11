@@ -106,6 +106,7 @@ class DessertShopDataBase (mContext : Context ) : SQLiteOpenHelper(
         val gateaux = ArrayList<Gateau>()
         val db = readableDatabase
         val selectQuery = "SELECT * FROM $GATEAUX_TABLE_NAME"
+
         val cursor = db.rawQuery(selectQuery,null)
         if(cursor != null){
             if(cursor.moveToFirst()){
@@ -125,7 +126,7 @@ class DessertShopDataBase (mContext : Context ) : SQLiteOpenHelper(
 
 
         db.close()
-        return  gateaux
+        return gateaux
     }
 
 

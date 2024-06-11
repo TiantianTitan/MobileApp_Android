@@ -80,6 +80,13 @@ class AddGateauActivity : AppCompatActivity() {
 
             val gateau = Gateau(title,description,imagesBlob,price,"")
             db.addGateau(gateau)
+
+            editTitle.setText("")
+            editDescription.setText("")
+            editPrice.setText("")
+            bitmap = null
+
+
             val isAdded = db.addGateau(gateau)
 
             if (isAdded) {
@@ -108,7 +115,7 @@ class AddGateauActivity : AppCompatActivity() {
 
     fun getBytes(bitmap: Bitmap): ByteArray{
         val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG,100,stream)
+        bitmap.compress(Bitmap.CompressFormat.PNG,0,stream)
         return  stream.toByteArray()
     }
 

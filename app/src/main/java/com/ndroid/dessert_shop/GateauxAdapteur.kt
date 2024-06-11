@@ -34,6 +34,7 @@ class GateauxAdapteur(
 
         gateauTitre.text = gateau.titre
         description.text = gateau.description
+
         val bitmap = getBitmap(gateau.image)
         imageGateau.setImageBitmap(bitmap)
 
